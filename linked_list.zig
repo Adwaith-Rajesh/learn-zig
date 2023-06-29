@@ -30,6 +30,16 @@ const LinkedList = struct {
         temp.?.next = new_node;
     }
 
+    fn addLeft(self: *LinkedList, data: i64) !void {
+        var new_node = try createNode(data, self.allocator);
+        if (self.head == null) {
+            self.head = new_node;
+            return;
+        }
+        new_node.next = self.head;
+        self.head = new_node;
+    }
+
     fn display(self: LinkedList) !void {
         var temp = self.head;
         while (temp) |v| {
@@ -56,6 +66,8 @@ pub fn main() !void {
     };
     try list.addNode(3);
     try list.addNode(4);
+    try list.addLeft(5);
+    try list.addLeft(6);
     try list.display();
     try list.destroy();
 
